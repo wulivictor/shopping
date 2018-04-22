@@ -1,0 +1,11 @@
+//定义函数
+border-1px($color)
+    position relative
+    &::after
+      position absolute
+      display block
+      width 100%
+      content ' '
+      bottom: 0
+      left: 0
+      border-bottom 1px solid $color
