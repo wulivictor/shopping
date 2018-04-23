@@ -1,10 +1,17 @@
 <template>
-  <div class="seller">I am seller</div>
+
+<img :src=seller.avatar>
+
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  name: 'seller'
+  name: 'seller',
+  props: {
+    seller: {
+      type: Object
+    }
+  }
 }
 </script>
 
