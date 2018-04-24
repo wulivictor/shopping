@@ -56,9 +56,9 @@
               <div class="line"></div>
             </div>
             <div class="msg-main">
-              <p v-for="discount in discounts" :key=discount>
-                <i class="icon" :type=discount.description></i>
-                <span>{{discount.description}}</span>
+              <p v-for="a in this.support">
+                <i class="icon">{{a.type}}</i>
+                <span>{{a.description}}</span>
               </p>
             </div>
 
