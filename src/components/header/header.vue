@@ -45,7 +45,7 @@
           <div class="seller-title">
             <h1 class="title-name"> {{seller.name}}</h1>
             <div class="star">
-              <star :size="48" :score="4.6"></star>
+              <star :size='48' :score=seller.score></star>
             </div>
 
           </div>
@@ -56,8 +56,8 @@
               <div class="line"></div>
             </div>
             <div class="msg-main">
-              <p v-for="discount in discounts">
-                <i class="icon"></i>
+              <p v-for="discount in discounts" :key=discount>
+                <i class="icon" :type=discount.description></i>
                 <span>{{discount.description}}</span>
               </p>
             </div>
@@ -83,7 +83,7 @@ export default{
       type: Object
     }
   },
-  data () {
+  data () { //  需要添加getter和setter就放在data里面
     return {
       detailShow: false,
       discounts: this.seller.supports
@@ -97,7 +97,7 @@ export default{
       this.detailShow = false
     }
   },
-  created () {
+  created () { //  不需要添加getter和setter就放在created里面
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   },
   components: {
