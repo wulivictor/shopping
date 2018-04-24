@@ -7,7 +7,6 @@
       </div>
       <div class="nav-item">
         <router-link to="rating">评论</router-link>
-
       </div>
       <div class="nav-item">
         <router-link to="seller">商家</router-link>
@@ -19,7 +18,6 @@
 
 <script type="text/ecmascript-6">
 import header from './components/header/header'
-
 const ERROR_OK = 0
 export default {
   data () {

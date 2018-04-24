@@ -9,7 +9,6 @@
           <div class="brand"></div>
           <div class="name">{{seller.name}}</div>
         </div>
-
         <div class="delivery">
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
@@ -17,11 +16,14 @@
         <div v-if="seller.supports" class="support"  v-on:click="showDetail">
           <div class="icon" :class=classMap[0]></div>
           <div class="decription">{{seller.supports[0].description}}</div>
-          <div class="number">{{seller.supports.length}}个 <i class="icon-keyboard_arrow_right"></i></div>
+          <div class="number">
+            <span>
+              {{seller.supports.length}}个 <i class="icon-keyboard_arrow_right"></i>
+            </span>
+          </div>
 
         </div>
       </div>
-
 
    </div>
    <div class="bulutin-wapper">
@@ -41,18 +43,26 @@
      <div class="detail-wapper clearfix">
        <div class="detail-main">
           <div class="seller-title">
-            <div class="title-name"><p>{{seller.name}}</p></div>
-            <div class="star"></div>
+            <h1 class="title-name"> {{seller.name}}</h1>
+            <div class="star">
+              <star :size="48" :score="4.6"></star>
+            </div>
+
           </div>
+          <div class="discount-msg">
+            <div class="msg-title">
+              <div class="line"></div>
+              <div class="text">优惠信息</div>
+              <div class="line"></div>
+            </div>
+            <div class="msg-main">
+              <p v-for="discount in discounts">
+                <i class="icon"></i>
+                <span>{{discount.description}}</span>
+              </p>
+            </div>
 
-
-
-
-
-
-
-
-
+          </div>
 
 
        </div>
@@ -65,6 +75,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import star from '../star/star.vue'
 export default{
   name: 'v-header',
   props: {
@@ -74,7 +85,8 @@ export default{
   },
   data () {
     return {
-      detailShow: false
+      detailShow: false,
+      discounts: this.seller.supports
     }
   },
   methods: {
@@ -87,6 +99,9 @@ export default{
   },
   created () {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+  },
+  components: {
+    star
   }
 }
 
@@ -98,10 +113,6 @@ export default{
     color #FFFFFF
     background rgba(7,17,27,0.5)
     overflow hidden
-    /*filter blur(10px)*/
-    /*width 100%*/
-    /*height 136px*/
-    /*blur 10px*/
     position relative
     .content-wapper
       position relative
@@ -227,7 +238,6 @@ export default{
         background-size contain
         filter blur(10px)
 
-
     .detail
       position fixed
       width 100%
@@ -242,18 +252,42 @@ export default{
         width 100%
         .detail-main
           padding 64px 36px
-          .title-name
+          .seller-title
             font-size: 16px
             font-weight 700
             color: rgb(255,255,255)
             line-height 16px
             text-align center
-            p
+            .title-name
               font-size: 16px;
               font-weight: 700;
             .star
-              height 24px
               margin-top 16px
+          .discount-msg
+            position relative
+            margin-top 28px
+            text-align center
+            .msg-title
+              font-size 14px
+              font-weight 700
+              color:rgb(255,255,255)
+              line-height 14px
+              text-align center
+              margin 0 12px
+              display flex
+              .line
+                flex 1
+                border-bottom 1px solid rgba(255,255,255,0.2)
+                position relative
+                top -6px
+              .text
+                padding  0 12px
+
+
+            .msg-main
+              padding-top 12px
+
+
       .detail-footer
         position relative
         height 64px

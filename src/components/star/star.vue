@@ -1,11 +1,16 @@
 <template>
   <div class="star" :class="starSize">
-    <span v-for="itemClass in itemClasses" :class="itemClass" class="staritem"></span>
-
+    <span v-for="itemClass in itemClasses" :class="itemClass" class="staritem">
+    </span>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+const LENGTH = 5
+const CLS_ON = 'on'
+const CLS_HALF = 'half'
+const CLS_OFF = 'off'
+
 export default {
   name: 'star',
   props: {
@@ -16,9 +21,33 @@ export default {
       type: Number
     }
   },
-  computer: {
+  computed: { //
     starSize () {
-      return 'stat-' + this.size
+      console.log('star-' + this.size)
+      return 'star-' + this.size
+    },
+    itemClasses () {
+      // debugger
+      let result = []
+      let score = Math.floor(this.score * 2) / 2
+      let hashalf = (score % 1 !== 0)
+      let integer = Math.floor(score)
+
+      // 设置星星数组
+      for (let i = 0; i < integer; i++) {
+        result.push(CLS_ON)
+      }
+      if (hashalf) {
+        result.push(CLS_HALF)
+      }
+      if (result.length !== LENGTH) {
+        for (let i = 0; i < (LENGTH - result.length); i++) {
+          result.push(CLS_OFF)
+        }
+      }
+      console.log(result)
+
+      return result
     }
   }
 }
@@ -30,12 +59,12 @@ export default {
     font-size 0
     background-repeat no-repeat
     &.star-24
-      width 20px
-      height 20px
-      background-size 20px 20px
       .staritem
+        width 10px
+        height 10px
+        background-size 10px 10px
         display inline-block
-        margin-right 22px
+        margin-right 3px
         &:last-child
           margin-right 0
       .on
@@ -44,13 +73,14 @@ export default {
         bg-image('star24_half')
       .off
         bg-image('star24_off')
+
     &.star-36
-      width 30px
-      height 30px
-      background-size 30px 30px
       .staritem
+        width 15px
+        height 15px
+        background-size 15px 15px
         display inline-block
-        margin-right 22px
+        margin-right 6px
         &:last-child
           margin-right 0
       .on
@@ -61,10 +91,10 @@ export default {
         bg-image('star36_off')
 
     &.star-48
-      width 60px
-      height 60px
-      background-size 60px 60px
       .staritem
+        width 20px
+        height 20px
+        background-size 20px 20px
         display inline-block
         margin-right 22px
         &:last-child
