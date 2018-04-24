@@ -1,6 +1,6 @@
 <template>
  <div class="header">
-   <div class="content-wapper" style="background-image: url('seller')">
+   <div class="content-wapper">
      <div class="avatar">
        <img :src=seller.avatar>
      </div>
@@ -25,12 +25,17 @@
 
    </div>
    <div class="bulutin-wapper">
-     <i class="bulletin-icon">
-     </i>
-     <span class="bulletin">
+     <span class="bulletin-icon">
+     </span>
+     <span class="bulletin-text">
         {{seller.bulletin}}
      </span>
+
      <i class="icon-keyboard_arrow_right"></i>
+
+   </div>
+   <div class="background">
+     <img :src="seller.avatar">
    </div>
  </div>
 </template>
@@ -45,7 +50,6 @@ export default {
   },
   created () {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-
   }
 }
 </script>
@@ -54,12 +58,13 @@ export default {
 @import "../../common/stylus/mixin.styl"
   .header
     color #FFFFFF
-    background yellow
-    width 100%
-    height 136px
+    background rgba(7,17,27,0.5)
+    /*width 100%*/
+    /*height 136px*/
+    /*blur 10px*/
+    position relative
     .content-wapper
       position relative
-      background rgba(7,17,27,0.5)
       blur 10px
       height 106px
       padding 0 12px 0 24px
@@ -146,14 +151,14 @@ export default {
         .icon-keyboard_arrow_right
           font-size 10px
     .bulutin-wapper
-      width 100%
+      position relative
       height 28px
       text-overflow:ellipsis
       white-space:nowrap
       overflow:hidden
       line-height 28px
-      font-size 0
-
+      font-size 10px
+      padding 0 22px 0 12px
 
       .bulletin-icon
         bg-image(bulletin)
@@ -162,14 +167,27 @@ export default {
         height 12px
         background-size 22px 12px
         background-repeat no-repeat
-        margin 7px 4px 5px 12px
+        margin 7px 0 5px 0
         vertical-align top
-
-      .bulletin
-        font-size 10px
-        color: #ffffff
-        height 28px
-        padding 0 4px
       .icon-keyboard_arrow_right
-        font-size 10px
+        position absolute
+        right: 12px;
+        bottom: 7px;
+
+
+
+    .background
+      position absolute
+      top: 0
+      left: 0
+      width 100%
+      height 100%
+      z-index -1
+      img
+        width 100%
+        height 100%
+        background-size contain
+        filter blur(10px)
+
+
 </style>
