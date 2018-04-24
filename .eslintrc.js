@@ -26,7 +26,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // allow paren-less arrow functions
-    'arrow-parens': 0
+    'arrow-parens': 0,
     // allow async-await
     // no-var
     'no-var': 'error',

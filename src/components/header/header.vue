@@ -1,5 +1,5 @@
 <template>
- <div class="header">
+ <div class="header" >
    <div class="content-wapper">
      <div class="avatar">
        <img :src=seller.avatar>
@@ -14,14 +14,14 @@
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
 
-        <div v-if="seller.supports" class="support">
+        <div v-if="seller.supports" class="support"  v-on:click="showDetail">
           <div class="icon" :class=classMap[0]></div>
           <div class="decription">{{seller.supports[0].description}}</div>
+          <div class="number">{{seller.supports.length}}个 <i class="icon-keyboard_arrow_right"></i></div>
 
         </div>
       </div>
 
-     <div class="number">{{seller.supports.length}}个 <i class="icon-keyboard_arrow_right"></i></div>
 
    </div>
    <div class="bulutin-wapper">
@@ -37,21 +37,59 @@
    <div class="background">
      <img :src="seller.avatar">
    </div>
+   <div class="detail" v-show="detailShow">
+     <div class="detail-wapper clearfix">
+       <div class="detail-main">
+          <div class="seller-title">
+            <div class="title-name"><p>{{seller.name}}</p></div>
+            <div class="star"></div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+       </div>
+     </div>
+     <div class="detail-footer">
+        <i class="icon-close" v-on:click="detailClose"></i>
+     </div>
+   </div>
  </div>
 </template>
 
 <script type="text/ecmascript-6">
-export default {
+export default{
   name: 'v-header',
   props: {
     seller: {
       type: Object
     }
   },
+  data () {
+    return {
+      detailShow: false
+    }
+  },
+  methods: {
+    showDetail () {
+      this.detailShow = true
+    },
+    detailClose () {
+      this.detailShow = false
+    }
+  },
   created () {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   }
 }
+
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -59,13 +97,15 @@ export default {
   .header
     color #FFFFFF
     background rgba(7,17,27,0.5)
+    overflow hidden
+    /*filter blur(10px)*/
     /*width 100%*/
     /*height 136px*/
     /*blur 10px*/
     position relative
     .content-wapper
       position relative
-      blur 10px
+      /*blur 10px*/
       height 106px
       padding 0 12px 0 24px
       font-size 0
@@ -134,7 +174,6 @@ export default {
             color #FFFFFF
 
       .number
-        float right
         position absolute
         font-size 10px
         font-weight 200
@@ -159,6 +198,7 @@ export default {
       line-height 28px
       font-size 10px
       padding 0 22px 0 12px
+      background rgba(7,17,27,0.2)
 
       .bulletin-icon
         bg-image(bulletin)
@@ -167,14 +207,12 @@ export default {
         height 12px
         background-size 22px 12px
         background-repeat no-repeat
-        margin 7px 0 5px 0
+        margin 8px 0 5px 0
         vertical-align top
       .icon-keyboard_arrow_right
         position absolute
         right: 12px;
         bottom: 7px;
-
-
 
     .background
       position absolute
@@ -189,5 +227,45 @@ export default {
         background-size contain
         filter blur(10px)
 
+
+    .detail
+      position fixed
+      width 100%
+      height 100%
+      z-index 100
+      overflow auto
+      background black//rgba(7,17,27,0.2)
+      top: 0
+      left: 0
+      .detail-wapper
+        min-height 100%
+        width 100%
+        .detail-main
+          padding 64px 36px
+          .title-name
+            font-size: 16px
+            font-weight 700
+            color: rgb(255,255,255)
+            line-height 16px
+            text-align center
+            p
+              font-size: 16px;
+              font-weight: 700;
+            .star
+              height 24px
+              margin-top 16px
+      .detail-footer
+        position relative
+        height 64px
+        width 100%
+        margin-top: -64px;
+        margin-left auto
+        margin-right auto
+        text-align center
+
+        i
+          display block
+          font-size 32px
+          color rgba(255,255,255,0.5)
 
 </style>
