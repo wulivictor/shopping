@@ -58,7 +58,7 @@
               </div>
               <div class="msg-main">
                 <ul v-if="seller.supports">
-                  <li v-for="(support,index) in seller.supports" class="description">
+                  <li v-for="(support,index) in seller.supports" class="description" v-bind:key="index">
                     <span class="icon" :class=classMap[support.type]></span>
                     <span>{{support.description}}</span>
                   </li>
@@ -76,10 +76,7 @@
                 <p class="notice-text">
                   {{seller.bulletin}}
                 </p>
-
               </div>
-
-
             </div>
           </div>
         </div>

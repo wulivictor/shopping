@@ -2,7 +2,7 @@
 <div class="goods">
   <div class="menu-wapper" ref="menuWapper">
     <ul v-show="goods">
-      <li v-for="(item,index) in goods" class="menu-option" :class="currentIndex === index? 'current' : ''" v-on:click="selectMenu(index)">
+      <li v-for="(item,index) in goods" class="menu-option" :class="currentIndex === index? 'current' : ''" v-on:click="selectMenu(index)" v-bind:key="index">
           <span class="option-content"><span class="icon" v-show="item.type>0" :class=classMap[item.type]></span>
            {{item.name}}</span>
       </li>
@@ -10,10 +10,10 @@
   </div>
   <div class="goods-wapper" ref="goodsWapper">
     <ul>
-      <li  v-for="item in goods" class="food-list food-list-hook">
+      <li  v-for="(item,index) in goods" class="food-list food-list-hook" v-bind:key="index">
         <h1 class="title">{{item.name}}</h1>
         <ul>
-          <li v-for="food in item.foods" class="food-item">
+          <li v-for="(food,index) in item.foods" class="food-item" v-bind:key="index">
             <div class="food-icon">
               <img :src="food.icon">
             </div>
@@ -38,15 +38,20 @@
       </li>
     </ul>
   </div>
+  <shopcart></shopcart>
 </div>
 
 </template>
 
 <script type="text/ecmascript-6">
+import shopcart from '../../components/shopcart/shopcart.vue'
 import BScroll from 'better-scroll'
 const ERRNO = 0
 export default {
   name: 'goods',
+  components: {
+    shopcart
+  },
   props: {
     seller: {
       type: Object
@@ -111,7 +116,7 @@ export default {
     // 定义左侧菜单按钮的功能
     selectMenu (index) {
       this.goodsScroll.scrollTo(0, (0 - this.listHeight[index]), 500)
-//      this.$refs.menuWapper.getElementsByClassName('menu-option')[index].classList.add('current')
+      //  this.$refs.menuWapper.getElementsByClassName('menu-option')[index].classList.add('current')
     }
   }
 }
