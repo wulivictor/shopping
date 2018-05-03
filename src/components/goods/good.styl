@@ -11,7 +11,7 @@
     flex 0 0 80px
     background #f3f5f7
     //overflow auto
-    .meun-option
+    .menu-option
       height 54px
       display table
       width 100%
@@ -45,7 +45,72 @@
         &.special
           bg-image(special_3)
 
-
-
   .goods-wapper
     flex 1
+    .title
+      border-left 2px solid #d9dde1
+      padding-left 14px
+      font-size 10px
+      color rgb(147,153,159)
+      line-height 26px
+      background #f3f5f7
+    .food-item
+      margin 0 18px
+      padding 18px 0
+      display flex
+      .food-icon
+        flex 0 0 57px
+        margin-right 10px
+        img
+          width 57px
+          height 57px
+      .content
+        flex 1
+        .food-content
+          .food-name
+            font-size 14px
+            color rgb(7,17,27)
+            line-height 14px
+            margin-top 2px
+            margin-bottom 8px
+          .desc
+            font-size 10px
+            line-height 12px
+            color rgb(147,153,159)
+            margin-bottom 8px
+        .extra
+          font-size 10px
+          line-height 10px
+          color rgb(147,153,159)
+          .sell-number
+            display inline-block
+          .comment
+            display inline-block
+            margin-left 12px
+        .price
+          font-size 14px
+          color rgb(240,20,20)
+          font-weight 700
+          line-height 24px
+          position relative
+          .new-price
+            display inline-block
+            line-height 24px
+            font-weight 700
+
+          .old-price
+            display inline-block
+            font-size 10px
+            color rgb(147,153,159)
+            line-height 24px
+            font-weight 700
+
+          .buynumber
+            position absolute
+            right 0
+            top 0
+    //设置每个商品的下划线
+
+    .food-item:not(:last-child)
+      border-1px(rgba(7,17,27,0.1))
+
