@@ -45,7 +45,7 @@ export default {
           result.push(CLS_OFF)
         }
       }
-      console.log(result)
+//      console.log(result)
       return result
     }
   }

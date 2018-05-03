@@ -8,9 +8,9 @@
       </li>
     </ul>
   </div>
-  <div class="goods-wapper" ref="goodsWapper">
+  <div class="goods-wapper" ref="goodsWapper" :class=currentIndex>
     <ul>
-      <li  v-for="item in goods" class="food-list">
+      <li  v-for="item in goods" class="food-list food-list-hook">
         <h1 class="title">{{item.name}}</h1>
         <ul>
           <li v-for="food in item.foods" class="food-item">
@@ -56,8 +56,23 @@ export default {
   },
   data () {
     return {
-      goods: []
+      goods: [],
+      listHeight: [],
+      scrollY: 0
     }
+  },
+  computed: {
+    currentIndex () {
+      for (let i = 1; i < this.listHeight.length; i++) {
+        let Height1 = this.listHeight[i - 1]
+        let Height2 = this.listHeight[i]
+        if (this.scrollY > Height1 && this.scrollY < Height2) {
+          console.log('可以看到是第几个元素' + i)
+          return i
+        }
+      }
+    }
+
   },
   created () {
     // 定义icon种类
@@ -69,6 +84,7 @@ export default {
         this.goods = response.data
         this.$nextTick(() => {
           this._initScroll()
+          this._calculateHeight()
         })
         // console.log(this.goods)
       }
@@ -77,14 +93,26 @@ export default {
   methods: {
     _initScroll () {
       this.menuScroll = new BScroll(this.$refs.menuWapper, {})
-      this.goodsScroll = new BScroll(this.$refs.goodsWapper, {})
+      this.goodsScroll = new BScroll(this.$refs.goodsWapper, {
+        probeType: 3
+      })
+      this.goodsScroll.on('scroll', (pos) => {
+        this.scrollY = Math.abs(Math.round(pos.y))
+      })
+    },
+    _calculateHeight () {
+      let fooditemlist = this.$refs.goodsWapper.getElementsByClassName('food-list-hook')
+      this.listHeight.push(0)
+      let temp = 0
+      for (let i = 0; i < fooditemlist.length; i++) {
+        temp += fooditemlist[i].clientHeight
+        this.listHeight.push(temp)
+      }
     }
-
   }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "good.styl"
-
 </style>
