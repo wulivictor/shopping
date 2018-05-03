@@ -60,7 +60,7 @@ export default {
         text-decoration none
         font-size 14px
         color rgb(77,85,93)
-        font-weight 200
+        font-weight 500
       &>a.active
         color rgb(240,20,20)
 

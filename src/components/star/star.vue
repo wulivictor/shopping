@@ -23,7 +23,7 @@ export default {
   },
   computed: { //
     starSize () {
-      console.log('star-' + this.size)
+      // console.log('star-' + this.size)
       return 'star-' + this.size
     },
     itemClasses () {
@@ -45,7 +45,7 @@ export default {
           result.push(CLS_OFF)
         }
       }
-//      console.log(result)
+      //  console.log(result)
       return result
     }
   }

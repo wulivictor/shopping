@@ -2,13 +2,13 @@
 <div class="goods">
   <div class="menu-wapper" ref="menuWapper">
     <ul v-show="goods">
-      <li v-for="(item,index) in goods" class="menu-option">
+      <li v-for="(item,index) in goods" class="menu-option" :class="currentIndex === index? 'current' : ''" v-on:click="selectMenu(index)">
           <span class="option-content"><span class="icon" v-show="item.type>0" :class=classMap[item.type]></span>
            {{item.name}}</span>
       </li>
     </ul>
   </div>
-  <div class="goods-wapper" ref="goodsWapper" :class=currentIndex>
+  <div class="goods-wapper" ref="goodsWapper">
     <ul>
       <li  v-for="item in goods" class="food-list food-list-hook">
         <h1 class="title">{{item.name}}</h1>
@@ -30,8 +30,6 @@
                 <span class="now-price"><span style="font-size: 10px;font-weight:normal">￥</span>{{food.price}}</span>
                 <s class="old-price" v-show="food.oldPrice">￥{{food.oldPrice}}</s>
                 <div class="buynumber">
-
-
                 </div>
               </div>
             </div>
@@ -58,21 +56,21 @@ export default {
     return {
       goods: [],
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      menuscroll: 0
     }
   },
   computed: {
     currentIndex () {
-      for (let i = 1; i < this.listHeight.length; i++) {
-        let Height1 = this.listHeight[i - 1]
-        let Height2 = this.listHeight[i]
-        if (this.scrollY > Height1 && this.scrollY < Height2) {
-          console.log('可以看到是第几个元素' + i)
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let Height1 = this.listHeight[i]
+        let Height2 = this.listHeight[i + 1]
+        if (!Height2 || (this.scrollY >= Height1 && this.scrollY < Height2)) {
+          // console.log('this.scrollY:' + this.scrollY + '\n' + 'h1:' + Height1 + '\n' + 'h2:' + Height2)
           return i
         }
       }
     }
-
   },
   created () {
     // 定义icon种类
@@ -86,13 +84,14 @@ export default {
           this._initScroll()
           this._calculateHeight()
         })
-        // console.log(this.goods)
       }
     })
   },
   methods: {
     _initScroll () {
-      this.menuScroll = new BScroll(this.$refs.menuWapper, {})
+      this.menuScroll = new BScroll(this.$refs.menuWapper, {
+        click: true
+      })
       this.goodsScroll = new BScroll(this.$refs.goodsWapper, {
         probeType: 3
       })
@@ -108,6 +107,11 @@ export default {
         temp += fooditemlist[i].clientHeight
         this.listHeight.push(temp)
       }
+    },
+    // 定义左侧菜单按钮的功能
+    selectMenu (index) {
+      this.goodsScroll.scrollTo(0, (0 - this.listHeight[index]), 500)
+//      this.$refs.menuWapper.getElementsByClassName('menu-option')[index].classList.add('current')
     }
   }
 }
