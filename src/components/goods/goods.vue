@@ -24,7 +24,7 @@
               </div>
               <div class="extra">
                 <span class="sellnumber">月售{{food.sellCount}}份</span>
-                <span class="comment">好评率{{food.rating}}%</span>
+                <span class="comment">好评率{{food.rating}}% </span>
               </div>
               <div class="price">
                 <span class="now-price"><span style="font-size: 10px;font-weight:normal">￥</span>{{food.price}}</span>
@@ -38,7 +38,8 @@
       </li>
     </ul>
   </div>
-  <shopcart></shopcart>
+  <shopcart :delivery="seller.deliveryPrice" :minprice="seller.minPrice" :goodArray="goodArray"></shopcart>
+  <!--:deliveryprice="deliveryprice" :minprice="minprice"-->
 </div>
 
 </template>
@@ -62,7 +63,17 @@ export default {
       goods: [],
       listHeight: [],
       scrollY: 0,
-      menuscroll: 0
+      menuscroll: 0,
+      goodArray: [
+        {
+          count: 1,
+          price: 0
+        },
+        {
+          count: 2,
+          price: 8
+        }
+      ]
     }
   },
   computed: {
@@ -121,7 +132,6 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "good.styl"
 </style>

@@ -5,20 +5,101 @@
   width 375px
   height 46px
   z-index: 50
-  background yellow
   .content
     display flex
     width 100%
     height 100%
+    font-size 0
+    background #141d27
     .content-left
-      flex 1
-      .logo-wapper
-        height 1px
-      .price
-      .desrc
+      flex: 1;
     .content-right
       flex 0 0 105px
       width 105px
+
+
+
+.content-left
+  .logo-wapper
+    display inline-block
+    position: relative
+    font-size 0
+    width 58px
+    height 58px
+    box-sizing border-box
+    padding 6px
+    margin 0 12px
+    top -12px
+    background #141d27
+    border-radius 50%
+    .goodsCount
+      position absolute
+      right 0
+      top:0
+      width 24px
+      height: 16px
+      line-height 16px
+      text-align center
+      border-radius 16px
+      font-size: 9px
+      color: white
+      background rgb(242,21,21)
+      box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.4)
+    .logo
+      border-radius 50%
+      width 100%
+      height 100%
+      font-size 24px
+      color #80858a
+      line-height 46px
+      text-align center
+      background #2b343c
+  // 购物车有商品就显示高亮 和goodsnumber
+  .logo.highlight
+      background rgb(0,160,220)
+      color #FFF
+
+  .price
+    font-size 16px
+    color rgba(255,255,255,0.4)
+    font-weight 700
+    display inline-block
+    height 22px
+    line-height 22px
+    margin 12px 0
+    padding-right 12px
+    vertical-align top
+    border-right 1px solid rgba(255,255,255,0.1)
+
+
+  .desrc
+    font-size 10px
+    color rgba(255,255,255,0.4)
+    font-weight 400
+    display inline-block
+    height 46px
+    line-height 22px
+    padding 12px 12px
+    vertical-align top
+    box-sizing border-box
+.content-right
+  .pay
+    width 89px
+    font-size 12px
+    line-height 22px
+    padding 12px 8px
+    font-weight 700
+    display inline-block
+    text-align center
+    vertical-align top
+    &.more
+      background rgb(4,138,63)
+      color #FFF
+    &.less
+      background #2b333b
+      color: rgba(255,255,255,0.4)
+
+
 
 
 
