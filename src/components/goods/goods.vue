@@ -32,26 +32,30 @@
                 <div class="buynumber">
                 </div>
               </div>
+              <div class="cartcontroller-wapper">
+                <cartcontroller :food = food></cartcontroller>
+              </div>
             </div>
           </li>
         </ul>
       </li>
     </ul>
   </div>
-  <shopcart :delivery="seller.deliveryPrice" :minprice="seller.minPrice" :goodArray="goodArray"></shopcart>
-  <!--:deliveryprice="deliveryprice" :minprice="minprice"-->
+  <shopcart :delivery="seller.deliveryPrice" :minprice="seller.minPrice" :selectfoods="selectfoods"></shopcart>
 </div>
 
 </template>
 
 <script type="text/ecmascript-6">
 import shopcart from '../../components/shopcart/shopcart.vue'
+import cartcontroller from '../../components/cartcontroller/cartcontroller.vue'
 import BScroll from 'better-scroll'
 const ERRNO = 0
 export default {
   name: 'goods',
   components: {
-    shopcart
+    shopcart,
+    cartcontroller
   },
   props: {
     seller: {
@@ -63,17 +67,7 @@ export default {
       goods: [],
       listHeight: [],
       scrollY: 0,
-      menuscroll: 0,
-      goodArray: [
-        {
-          count: 1,
-          price: 0
-        },
-        {
-          count: 2,
-          price: 8
-        }
-      ]
+      menuscroll: 0
     }
   },
   computed: {
@@ -86,6 +80,17 @@ export default {
           return i
         }
       }
+    },
+    selectfoods () {
+      let foods = []
+      this.goods.forEach(good => {
+        good.foods.forEach(food => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
   },
   created () {
@@ -109,7 +114,8 @@ export default {
         click: true
       })
       this.goodsScroll = new BScroll(this.$refs.goodsWapper, {
-        probeType: 3
+        probeType: 3,
+        click: true
       })
       this.goodsScroll.on('scroll', (pos) => {
         this.scrollY = Math.abs(Math.round(pos.y))

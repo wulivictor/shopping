@@ -3,34 +3,38 @@
     <div class="content">
       <div class="content-left">
         <div class="logo-wapper">
-          <div class="logo" v-bind:class="[(calcuteCount > 0) ? 'highlight' : '']">
+          <div class="logo" v-bind:class="{'highlight' : (calcuteCount > 0) }">
             <span class="icon-shopping_cart"></span>
           </div>
           <div class="goodsCount" v-show="calcuteCount>0">
             {{calcuteCount}}
           </div>
         </div>
-        <div class="price">￥{{calcutePrice}}</div>
+        <div class="price" v-bind:class="{'highlight' : calcutePrice > 0}">￥{{calcutePrice}}</div>
         <div class="desrc">另需配送费￥{{delivery}}元</div>
       </div>
       <div class="content-right">
-        <div class="pay less" v-show="totalprice < delivery">￥{{minprice}}起送</div>
-        <div class="pay more" v-show="totalprice >= delivery">去结算</div>
+        <div class="pay none" v-show="payDesrc == false">￥{{minprice}}起送</div>
+        <div class="pay less" v-show="payDesrc !== true && payDesrc !== false">还差{{payDesrc}}元起送</div>
+        <div class="pay enough" v-show="payDesrc == true" @click="submitOrder">去结算</div>
       </div>
+    </div>
+    <div class="cartdetail" v-show="detailShow">
+
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
-// import $ from 'jquery'
 export default {
   name: 'shopcart',
   data () {
     return {
-      totalprice: 0
+      totalprice: 0,
+      detailShow: false
     }
   },
   props: {
-    goodArray: {
+    selectfoods: {
       type: Array,
       default: () => {
         return [
@@ -50,21 +54,41 @@ export default {
       default: 0
     }
   },
-  methods: {},
   computed: {
-    calcutePrice () {
-      let totalPrice = 0
-      this.goodArray.forEach((good) => {
-        totalPrice += good.price * good.count
-      })
-      return totalPrice
+    calcutePrice: {
+      get: function () {
+        let totalPrice = 0
+        this.selectfoods.forEach((good) => {
+          totalPrice += good.price * good.count
+        })
+        return totalPrice
+      }
     },
     calcuteCount () {
       let totalCount = 0
-      this.goodArray.forEach((good) => {
+      this.selectfoods.forEach((good) => {
         totalCount += good.count
       })
       return totalCount
+    },
+    payDesrc () {
+      let totalPrice = 0
+      this.selectfoods.forEach((good) => {
+        totalPrice += good.price * good.count
+      })
+      // debugger
+      if (totalPrice === 0) {
+        return false
+      } else if (totalPrice > 0 && totalPrice < this.minprice) {
+        return this.minprice - totalPrice
+      } else {
+        return true
+      }
+    }
+  },
+  methods: {
+    submitOrder () {
+      return 0
     }
   }
 }
