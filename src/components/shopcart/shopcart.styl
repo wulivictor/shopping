@@ -1,3 +1,4 @@
+@import "../../common/stylus/mixin.styl"
 .shopcart
   position fixed
   bottom 0
@@ -19,6 +20,9 @@
       flex 0 0 105px
       width 105px
 
+/*
+*
+ */
 
 
 .content-left
@@ -108,7 +112,6 @@
       background rgb(4,138,63)
       color #FFF
 
-
 .cartdetail
   position: fixed;
   max-height: 305px;
@@ -116,5 +119,81 @@
   left: 0;
   width: 100%;
   z-index: 50;
+  .title
+    height 40px
+    background #f3f5f7
+    font-weight 200
+    line-height 40px
+    padding 0 18px
+    width 100%
+    box-sizing border-box
+    border-1px(rgba(7,17,27,0.1))
+
+    .cart
+      font-size 14px
+      color rgb(7,17,27)
+      display inline-block
+      float left
+    .reset
+      color: rgb(0,160,220)
+      font-size 12px
+      display inline-block
+      float right
+      padding 0 10px
+      border-1px(rgba(7,17,27,0.1))
+  .content
+    background #FFF
+    // 购物车详情的每个列表
+    ul
+      width 100%
+      padding 0 18px
+    .foodlist
+      height: 48px
+      width 100%
+      box-sizing border-box
+      border-1px(rgba(7,17,27,0.1))
+      position relative
+
+      .content-left
+        position absolute
+        top: 0
+        left: 0
+        .foodname
+          display inline-block
+          line-height 24px
+          padding 12px 0
+          color: rgb(7,17,27)
+          font-size 14px
+      .content-right
+        position absolute
+        top: 0
+        right: 0
+        width 120px
+        height 48px
+        .food-price
+          font-size 14px
+          font-weight 700
+          color: rgb(240,20,20)
+          line-height 24px
+          padding 12px 12px 12px 18px
+          display inline-block
+          vertical-align top
+        .cart-wapper
+          display inline-block
+          padding 12px 0
+          .food-count
+            input
+              width 24px
+              font-size 10px
+              color: rgb(147,153,159)
+
+
+
+
+
+
+
+
+
 
 

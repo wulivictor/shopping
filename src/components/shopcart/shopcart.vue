@@ -20,17 +20,40 @@
       </div>
     </div>
     <div class="cartdetail" v-show="detailShow">
+      <div class="title">
+        <div class="cart">购物车</div>
+        <div class="reset">清空</div>
+      </div>
+      <div class="content">
+        <ul>
+          <li v-for="(food,index) in selectfoods" v-bind:key="index" class="foodlist">
+            <div class="content-left">
+              <div class="foodname">{{food.name}}</div>
+            </div>
+            <div class="content-right">
+              <div class="food-price">{{food.price}}</div>
+              <div class="cart-wapper">
+                <cartcontroller :food="selectfoods"></cartcontroller>
+              </div>
+            </div>
 
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
+import cartcontroller from '../../components/cartcontroller/cartcontroller.vue'
 export default {
   name: 'shopcart',
+  components: {
+    cartcontroller
+  },
   data () {
     return {
       totalprice: 0,
-      detailShow: false
+      detailShow: true
     }
   },
   props: {
@@ -85,6 +108,8 @@ export default {
         return true
       }
     }
+  },
+  created () {
   },
   methods: {
     submitOrder () {
