@@ -2,7 +2,7 @@
   <div class="shopcart">
     <div class="content">
       <div class="content-left">
-        <div class="logo-wapper">
+        <div class="logo-wapper" v-on:click="showShopCart">
           <div class="logo" v-bind:class="{'highlight' : (calcuteCount > 0) }">
             <span class="icon-shopping_cart"></span>
           </div>
@@ -10,13 +10,13 @@
             {{calcuteCount}}
           </div>
         </div>
-        <div class="price" v-bind:class="{'highlight' : calcutePrice > 0}">￥{{calcutePrice}}</div>
-        <div class="desrc">另需配送费￥{{delivery}}元</div>
+        <div class="price" v-bind:class="{'highlight' : calcutePrice > 0}" v-on:click="showShopCart">￥{{calcutePrice}}</div>
+        <div class="desrc" v-on:click="showShopCart">另需配送费￥{{delivery}}元</div>
       </div>
       <div class="content-right">
         <div class="pay none" v-show="payDesrc == false">￥{{minprice}}起送</div>
         <div class="pay less" v-show="payDesrc !== true && payDesrc !== false">还差{{payDesrc}}元起送</div>
-        <div class="pay enough" v-show="payDesrc == true" @click="submitOrder">去结算</div>
+        <div class="pay enough" v-show="payDesrc == true" v-on:click="submitOrder">去结算</div>
       </div>
     </div>
     <div class="cartdetail" v-show="detailShow">
@@ -114,6 +114,9 @@ export default {
   methods: {
     submitOrder () {
       return 0
+    },
+    showShopCart () {
+      this.detailShow = !this.detailShow
     }
   }
 }
