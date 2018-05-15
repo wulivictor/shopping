@@ -24,16 +24,16 @@
         <div class="cart">购物车</div>
         <div class="reset">清空</div>
       </div>
-      <div class="content">
+      <div class="content" ref="cartWapper">
         <ul>
           <li v-for="(food,index) in selectfoods" v-bind:key="index" class="foodlist">
             <div class="content-left">
               <div class="foodname">{{food.name}}</div>
             </div>
             <div class="content-right">
-              <div class="food-price">{{food.price}}</div>
+              <div class="food-price">{{food.price*food.count}}</div>
               <div class="cart-wapper">
-                <cartcontroller :food="selectfoods"></cartcontroller>
+                <cartcontroller :food="food"></cartcontroller>
               </div>
             </div>
 
@@ -45,6 +45,7 @@
 </template>
 <script type="text/ecmascript-6">
 import cartcontroller from '../../components/cartcontroller/cartcontroller.vue'
+import BScroll from 'better-scroll'
 export default {
   name: 'shopcart',
   components: {
@@ -110,13 +111,27 @@ export default {
     }
   },
   created () {
+    this._initScroll()
   },
   methods: {
+    this.$emit('update:chstatus',newValue)
     submitOrder () {
       return 0
     },
     showShopCart () {
       this.detailShow = !this.detailShow
+    },
+    _initScroll () {
+      this.menuScroll = new BScroll(this.$refs.cartWapper, {
+        click: true
+      })
+      // this.goodsScroll = new BScroll(this.$refs.goodsWapper, {
+      //   probeType: 3,
+      //   click: true
+      // })
+      // this.goodsScroll.on('scroll', (pos) => {
+      //   this.scrollY = Math.abs(Math.round(pos.y))
+      // })
     }
   }
 }
