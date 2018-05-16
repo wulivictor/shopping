@@ -36,7 +36,6 @@
                 <cartcontroller :food="food"></cartcontroller>
               </div>
             </div>
-
           </li>
         </ul>
       </div>
@@ -114,7 +113,6 @@ export default {
     this._initScroll()
   },
   methods: {
-    this.$emit('update:chstatus',newValue)
     submitOrder () {
       return 0
     },
@@ -125,13 +123,6 @@ export default {
       this.menuScroll = new BScroll(this.$refs.cartWapper, {
         click: true
       })
-      // this.goodsScroll = new BScroll(this.$refs.goodsWapper, {
-      //   probeType: 3,
-      //   click: true
-      // })
-      // this.goodsScroll.on('scroll', (pos) => {
-      //   this.scrollY = Math.abs(Math.round(pos.y))
-      // })
     }
   }
 }
