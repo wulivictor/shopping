@@ -87,7 +87,6 @@
     </transition>
   </div>
 </template>
-
 <script type="text/ecmascript-6">
 import star from '../star/star.vue'
 export default {

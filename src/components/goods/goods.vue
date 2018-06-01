@@ -13,7 +13,7 @@
       <li  v-for="(item,index) in goods" class="food-list food-list-hook" v-bind:key="index">
         <h1 class="title">{{item.name}}</h1>
         <ul>
-          <li v-for="(food,index) in item.foods" class="food-item" v-bind:key="index">
+          <li v-for="(food,index) in item.foods"  @click="lookDetail(food,$event)"  class="food-item" v-bind:key="index">
             <div class="food-icon">
               <img :src="food.icon">
             </div>
@@ -42,20 +42,22 @@
     </ul>
   </div>
   <shopcart :delivery="seller.deliveryPrice" :minprice="seller.minPrice" :selectfoods.sync="selectfoods"></shopcart>
+  <food :food="selectfood" ref="food"></food>
 </div>
-
 </template>
 
 <script type="text/ecmascript-6">
 import shopcart from '../../components/shopcart/shopcart.vue'
 import cartcontroller from '../../components/cartcontroller/cartcontroller.vue'
 import BScroll from 'better-scroll'
+import food from '../../components/food/food.vue'
 const ERRNO = 0
 export default {
   name: 'goods',
   components: {
     shopcart,
-    cartcontroller
+    cartcontroller,
+    food
   },
   props: {
     seller: {
@@ -67,7 +69,8 @@ export default {
       goods: [],
       listHeight: [],
       scrollY: 0,
-      menuscroll: 0
+      menuscroll: 0,
+      selectfood: {}
     }
   },
   computed: {
@@ -134,6 +137,14 @@ export default {
     selectMenu (index) {
       this.goodsScroll.scrollTo(0, (0 - this.listHeight[index]), 500)
       //  this.$refs.menuWapper.getElementsByClassName('menu-option')[index].classList.add('current')
+    },
+    // 点击商品后将food信息传递给子组件
+    lookDetail (food, event) {
+      if (!event._constructed) {
+        return
+      }
+      this.selectfood = food
+      this.$refs.food.show()
     }
   }
 }
