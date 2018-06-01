@@ -1,6 +1,6 @@
 <template>
   <div class="shopcart">
-    <div class="content">
+    <div class="content" style="overflow: visible">
       <div class="content-left">
         <div class="logo-wapper" v-on:click="showShopCart">
           <div class="logo" v-bind:class="{'highlight' : (calcuteCount > 0) }">
@@ -24,7 +24,7 @@
         <div class="cart">购物车</div>
         <div class="reset">清空</div>
       </div>
-      <div class="content" ref="cartWapper">
+      <div class="content" ref="cartWapper" v-bind:class="{'hello': listShow > 0}">
         <ul>
           <li v-for="(food,index) in selectfoods" v-bind:key="index" class="foodlist">
             <div class="content-left">
@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       totalprice: 0,
-      detailShow: true
+      detailShow: false
     }
   },
   props: {
@@ -78,6 +78,21 @@ export default {
     }
   },
   computed: {
+    listShow () {
+      if (this.selectfoods.length) {
+        this.$nextTick(() => {
+          let ul = this.$refs.cartWapper.getElementsByTagName('ul')
+          let lis = ul[0].getElementsByTagName('li')
+          let lisheight = 0
+          for (let i = 0; i < lis.length; i++) {
+            lisheight += lis[i].offsetHeight
+          }
+          ul[0].style.height = lisheight + 'px'
+          this._initcartScroll()
+        })
+      }
+      return 0
+    },
     calcutePrice: {
       get: function () {
         let totalPrice = 0
@@ -109,18 +124,27 @@ export default {
       }
     }
   },
-  created () {
-    this._initScroll()
-  },
   methods: {
     submitOrder () {
       return 0
     },
     showShopCart () {
       this.detailShow = !this.detailShow
+      if (this.selectfoods.length) {
+        this.$nextTick(() => {
+          let ul = this.$refs.cartWapper.getElementsByTagName('ul')
+          let lis = ul[0].getElementsByTagName('li')
+          let lisheight = 0
+          for (let i = 0; i < lis.length; i++) {
+            lisheight += lis[i].offsetHeight
+          }
+          ul[0].style.height = lisheight + 'px'
+          this._initcartScroll()
+        })
+      }
     },
-    _initScroll () {
-      this.menuScroll = new BScroll(this.$refs.cartWapper, {
+    _initcartScroll () {
+      this.cartScroll = new BScroll(this.$refs.cartWapper, {
         click: true
       })
     }
