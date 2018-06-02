@@ -1,55 +1,146 @@
+@import "../../common/stylus/mixin.styl"
 .food
+  background-color #f3f5f7
   position: fixed
   top: 0
   left: 0
   bottom: 48px
   z-index: 30
   width 100%
-  background #FFF
-  .food-detail
-    .food-image
+  .page-scroll
+    .food-detail
       width 100%
-      height 375px
-    .food-msg
-      padding  18px
+      border-1px(rgba(7,17,27,0.1))
+      background-color #ffffff
+      .food-image
+        width 100%
+        height 375px
+      .food-msg
+        padding  18px
+        h2
+          font-size 14px
+          font-weight 700
+          color: rgb(7,17,27)
+          line-height 14px
+          font-family 'PingFang SC', 'STHeitisc-Light', 'Microsoft YaHei UI'
+        .desc
+          padding 8px 0 18px 0
+          font-size 10px
+          color rgb(147,153,159)
+          line-height 10px
+          .rating
+            padding-left 12px
+        .cart
+          overflow hidden
+          .price
+            float left
+            .nowprice
+              font-size 14px
+              font-weight 700
+              color rgb(240,20,20)
+              line-height 24px
+
+              .oldprice
+                font-size 10px
+                font-weight 700
+                color rgb(147,153,159)
+                line-height 24px
+          .addcart
+            float right
+            .addbtn
+              width 74px
+              background rgb(0,160,220)
+              font-size 10px
+              color #fff
+              line-height 12px
+              padding 6px 0
+              text-align center
+              border-radius 12px
+
+    .food-intro
+      padding 18px
+      margin-top 16px
+      width 100%
+      box-sizing border-box
+      border-1pxtop(rgba(7,17,27,0.1))
+      border-1px(rgba(7,17,27,0.1))
+      background #ffffff
       h2
         font-size 14px
-        font-weight 700
-        color: rgb(7,17,27)
+        font-weight 500
+        color rgb(7,17,27)
         line-height 14px
-        font-family 'PingFang SC', 'STHeitisc-Light', 'Microsoft YaHei UI'
       .desc
-        padding 8px 0 18px 0
-        font-size 10px
-        color rgb(147,153,159)
-        line-height 10px
-        .rating
-          padding-left 12px
-      .cart
-        overflow hidden
-        .price
-          float left
-          .nowprice
-            font-size 14px
-            font-weight 700
-            color rgb(240,20,20)
-            line-height 24px
-
-            .oldprice
-              font-size 10px
-              font-weight 700
-              color rgb(147,153,159)
-              line-height 24px
-        .addcart
-          float right
-          .addbtn
-            width 74px
-            background rgb(0,160,220)
-            font-size 10px
+        padding 6px 8px 0 8px
+        font-size 12px
+        font-weight 3
+        color rgb(77,85,93)
+        line-height 24px
+    .food-rating
+      .header
+        margin-top 16px
+        width 100%
+        background #FFFFFF
+        padding 18px
+        padding-bottom 0
+        box-sizing border-box
+        border-1px(rgba(7,17,27,0.1))
+        h2
+          font-size 14px
+          font-weight 500
+          color rgb(7,17,27)
+          line-height 14px
+          padding-bottom 6px
+        .btn-group
+          padding 12px 0 18px 0
+          overflow hidden
+          border-1px(rgba(7,17,27,0.1))
+          .all
+            padding 8px 12px
+            float left
+            font-size 12px
             color #fff
-            line-height 12px
-            padding 6px 0
-            text-align center
-            border-radius 12px
+            line-height 16px
+            background-color rgb(0,160,220)
+            border-right: 12px;
+            margin-right 8px
+            border-radius 2px
+          .recommand
+            padding 8px 12px
+            float left
+            font-size 12px
+            color rgb(77,85,93)
+            line-height 16px
+            background-color rgba(0,160,220,0.2)
+            border-right: 12px;
+            margin-right 8px
+            border-radius 2px
+          .gag
+            padding 8px 12px
+            float left
+            font-size 12px
+            color #fff
+            line-height 16px
+            background-color rgba(77,85,93,0.2)
+            border-right: 12px;
+            border-radius 2px
+        .ratingoption
+          .icon-check_circle
+            display inline-block
+            padding 12px 4px 12px 0
+            font-size 24px
+            color rgb(147,153,159)
+            line-height 24px
+          span
+            display inline-block
+            font-size 12px
+            color rgb(147,153,159)
+            line-height 24px
+            vertical-align top
+            padding 12px 0
+
+
+
+
 
 

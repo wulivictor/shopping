@@ -70,7 +70,7 @@ export default {
       listHeight: [],
       scrollY: 0,
       menuscroll: 0,
-      selectfood: {}
+      selectfood: {} // 这个selectf为点击food时选择的food，为了进入food详情页
     }
   },
   computed: {

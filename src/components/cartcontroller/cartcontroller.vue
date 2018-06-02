@@ -4,7 +4,7 @@
   <div class="food-count" v-show="food.count>0"> <!---->
     <input type="number" v-model="food.count">
   </div>
-  <div class="food-add icon-add_circle"  @click="addClick"></div>
+  <div class="food-add icon-add_circle"  @click.stop="addClick"></div>
 </div>
 </template>
 

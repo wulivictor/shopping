@@ -22,7 +22,7 @@
     <div class="cartdetail" v-show="detailShow">
       <div class="title">
         <div class="cart">购物车</div>
-        <div class="reset">清空</div>
+        <div class="reset" @click="clear">清空</div>
       </div>
       <div class="content" ref="cartWapper" v-bind:class="{'hello': listShow > 0}">
         <ul>
@@ -45,6 +45,7 @@
 <script type="text/ecmascript-6">
 import cartcontroller from '../../components/cartcontroller/cartcontroller.vue'
 import BScroll from 'better-scroll'
+import vue from 'vue'
 export default {
   name: 'shopcart',
   components: {
@@ -125,12 +126,22 @@ export default {
     }
   },
   methods: {
+    clear () {
+      this.$nextTick(() => {
+        debugger
+        for (let i = 0; i < this.selectfoods.length; i++) {
+          debugger
+          this.selectfoods[i].count = 0
+          this.detailShow = false
+        }
+      })
+    },
     submitOrder () {
       return 0
     },
     showShopCart () {
-      this.detailShow = !this.detailShow
       if (this.selectfoods.length) {
+        this.detailShow = !this.detailShow
         this.$nextTick(() => {
           let ul = this.$refs.cartWapper.getElementsByTagName('ul')
           let lis = ul[0].getElementsByTagName('li')
