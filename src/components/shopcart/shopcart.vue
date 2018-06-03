@@ -45,7 +45,7 @@
 <script type="text/ecmascript-6">
 import cartcontroller from '../../components/cartcontroller/cartcontroller.vue'
 import BScroll from 'better-scroll'
-import vue from 'vue'
+// import vue from 'vue'
 export default {
   name: 'shopcart',
   components: {
@@ -127,14 +127,10 @@ export default {
   },
   methods: {
     clear () {
-      this.$nextTick(() => {
-        debugger
-        for (let i = 0; i < this.selectfoods.length; i++) {
-          debugger
-          this.selectfoods[i].count = 0
-          this.detailShow = false
-        }
-      })
+      for (let i = 0; i < this.selectfoods.length; i++) {
+        this.selectfoods[i].count = 0
+        this.detailShow = false
+      }
     },
     submitOrder () {
       return 0

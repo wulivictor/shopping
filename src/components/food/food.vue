@@ -31,7 +31,7 @@
         <div class="header">
           <h2>商品评论</h2>
           <div class="btn-group">
-            <div class="all">全部<span class="ratingtotal"></span></div>
+            <div class="all" @click="changeRate">全部<span class="ratingtotal"></span></div>
             <div class="recommand">推荐</div>
             <div class="gag">吐槽</div>
           </div>
@@ -40,30 +40,51 @@
           </div>
         </div>
         <div class="content">
-
+          <ul>
+            <li class="rate-item" v-for="(rate, index) in selectrating" v-bind:key="index">
+              <div class="rate-msg">
+                <div class="rate-time">{{rate.rateTime | formatDate}}</div>
+                <div class="rate-headimg" v-bind:style="{backgroundImage:'url(' + rate.avatar + ')'}"></div>
+                <div class="rate-name">{{rate.username}}</div>
+              </div>
+              <div class="rate-content" >
+                <i v-bind:class="[rate.rateType === 0 ? 'icon-thumb_up' : 'icon-thumb_down']"></i>
+                <span class="rate-text" v-show="rate.text !== ''">{{rate.text}}</span>
+                <span class="rate-text" v-show="rate.text === '' && rate.rateType === 0">GOOD</span>
+                <span class="rate-text" v-show="rate.text === '' && rate.rateType === 1">NOT GOOD</span>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
+import {formatDate} from '../../common/js/date'
 import BScroll from 'better-scroll'
 import vue from 'vue'
 export default {
   name: 'food',
-  data () {
-    return {
-      showFlag: false
-    }
-  },
   props: {
     food: {
       type: Object
+    },
+    ratings: {
+      type: Array
+    }
+  },
+  data () {
+    return {
+      showFlag: false,
+      selectrating: []
     }
   },
   methods: {
+    changeRate () {
+      alert(1)
+    },
     addcart () {
-      debugger
       vue.set(this.food, 'count', 1)
     },
     initSCroll () {
@@ -76,9 +97,25 @@ export default {
     }
   },
   created () {
-    this.$nextTick(() => {
+    this.$nextTick(() => { // 初始化滑动组件
       this.initSCroll()
     })
+  },
+  computed: {
+    // selectratings () {
+    //   return this.ratings
+    // }
+  },
+  watch: {
+    ratings (val) {
+      this.selectrating = this.ratings
+    }
+  },
+  filters: {
+    formatDate (time) {
+      let date = new Date(time)
+      return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
+    }
   }
 }
 </script>

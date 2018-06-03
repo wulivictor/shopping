@@ -71,17 +71,45 @@
             },
             {
               "username": "2******3",
-              "rateTime": 1469271264000,
+              "rateTime": 1469271264070,
+              "rateType": 0,
+              "text": "味道不错，就是有一点咸，有待进一步优化",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "t******b",
+              "rateTime": 1469261964300,
+              "rateType": 1,
+              "text": "不好吃，差评",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "k******k",
+              "rateTime": 1469261964600,
+              "rateType": 1,
+              "text": "太难吃了",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "x******b",
+              "rateTime": 1469261964400,
+              "rateType": 0,
+              "text": "很棒的味道",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "d******9",
+              "rateTime": 1469261964000,
               "rateType": 0,
               "text": "",
               "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
             },
             {
-              "username": "3******b",
-              "rateTime": 1469261964000,
+              "username": "7******5",
+              "rateTime": 1469261964080,
               "rateType": 1,
               "text": "",
-              "avatar": ""
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
             }
           ],
           "icon": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/114/h/114",
