@@ -31,11 +31,11 @@
         <div class="header">
           <h2>商品评论</h2>
           <div class="btn-group">
-            <div class="all" @click="changeRate">全部<span class="ratingtotal"></span></div>
-            <div class="recommand">推荐</div>
-            <div class="gag">吐槽</div>
+            <div class="all" @click="changeRate('all')">全部<span class="ratingtotal"></span></div>
+            <div class="recommand" @click="changeRate('recommand')">推荐</div>
+            <div class="gag" @click="changeRate('gag')">吐槽</div>
           </div>
-          <div class="ratingoption">
+          <div class="ratingoption" @click="showContent()">
             <i class="icon-check_circle"></i><span>只看有内容的评论</span>
           </div>
         </div>
@@ -77,12 +77,49 @@ export default {
   data () {
     return {
       showFlag: false,
-      selectrating: []
+      selectrating: [],
+      showcontent: false
     }
   },
   methods: {
-    changeRate () {
-      alert(1)
+    showContent () {
+      this.showcontent = !this.showcontent
+      let contain = []
+      if (this.showcontent) {
+        this.selectrating.forEach(ele => {
+          if (ele.text !== '') {
+            contain.push(ele)
+          }
+        })
+      }
+      this.selectrating = contain
+    },
+    changeRate (type) {
+      let contain = []
+      if (this.showcontent) {
+        this.selectrating.forEach(ele => {
+          if (ele.text !== '') {
+            contain.push(ele)
+          }
+        })
+      }
+      this.selectrating = contain
+      let recommandrate = []
+      let gagrate = []
+      this.selectrating.forEach(ele => {
+        if (ele.rateType === 0) {
+          recommandrate.push(ele)
+        } else {
+          gagrate.push(ele)
+        }
+      })
+      if (type === 'all') {
+        this.selectrating = this.ratings
+      } else if (type === 'recommand') {
+        this.selectrating = recommandrate
+      } else if (type === 'gag') {
+        this.selectrating = gagrate
+      }
     },
     addcart () {
       vue.set(this.food, 'count', 1)
