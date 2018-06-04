@@ -1,5 +1,5 @@
 <template>
-  <div v-show="showFlag" class="food" ref="foodWapper">
+  <div v-show="showFlag" class="food" ref="foodWapper" id="foodWapper"> <!-- @touchstart='touchStart' @touchend='touchEnd' -->
     <div class="page-scroll">
       <div class="food-detail">
         <img v-bind:src="food.image" class="food-image">
@@ -18,7 +18,7 @@
             </span>
             </div>
             <div class="addcart">
-              <div class="addbtn" @click="addcart" v-bind:hidden="food.count || !food.count===0">加入购物车</div>
+              <div class="addbtn" @click="addcart" v-bind:hidden="food.count || !food.count === 0">加入购物车</div>
             </div>
           </div>
         </div>
@@ -81,10 +81,46 @@ export default {
       rateoption: {
         showcontent: false,
         changerate: 0 /* 0是all 1是recommand 2是gag */
-      }
+      },
+      startX: 0, // 开始位置
+      endX: 0, // 结束位置
+      disX: 0 // 滑动的距离
     }
   },
   methods: {
+    touchstart () {
+      this.$refs.foodWapper.addEventListener('touchstart', (evt) => {
+        evt = evt || window.event
+        this.startX = evt.touches[0].clientX
+        if (evt.cancelable) {
+          // 判断默认行为是否已经被禁用
+          if (!evt.defaultPrevented) {
+            evt.preventDefault()
+          }
+        }
+      },
+      { passive: false }
+      )
+    },
+    touchend () {
+      let foodwapper = this.$refs.foodWapper
+      foodwapper.addEventListener('touchend', (evt) => {
+        evt = evt || window.event
+        this.endX = evt.changedTouches[0].clientX
+        if ((this.endX - this.startX) > 80) {
+          // 可以隐藏
+          foodwapper.style.display = 'none'
+        }
+        if (evt.cancelable) {
+          // 判断默认行为是否已经被禁用
+          if (!evt.defaultPrevented) {
+            evt.preventDefault()
+          }
+        }
+      },
+      { passive: false }
+      )
+    },
     showContent () {
       this.rateoption.showcontent = !this.rateoption.showcontent // 如果勾选过滤 则处理数据
     },
@@ -102,7 +138,12 @@ export default {
     },
     initSCroll () {
       this.foodScroll = new BScroll(this.$refs.foodWapper, {
-        click: true
+        scrollY: true,
+        click: true,
+        probeType: 3
+      })
+      this.foodScroll.on('scroll', (pos) => {
+        // console.log(pos)
       })
     },
     show () {
@@ -112,6 +153,8 @@ export default {
   created () {
     this.$nextTick(() => { // 初始化滑动组件
       this.initSCroll()
+      this.touchstart()
+      this.touchend()
     })
   },
   watch: {

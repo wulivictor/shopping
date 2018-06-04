@@ -118,7 +118,8 @@ export default {
       })
       this.goodsScroll = new BScroll(this.$refs.goodsWapper, {
         probeType: 3,
-        click: true
+        click: true,
+        preventDefault: true
       })
       this.goodsScroll.on('scroll', (pos) => {
         this.scrollY = Math.abs(Math.round(pos.y))
