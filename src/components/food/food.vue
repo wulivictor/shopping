@@ -35,8 +35,8 @@
             <div class="recommand" @click="changeRate('recommand')">推荐</div>
             <div class="gag" @click="changeRate('gag')">吐槽</div>
           </div>
-          <div class="ratingoption" @click="showContent()">
-            <i class="icon-check_circle"></i><span>只看有内容的评论</span>
+          <div class="ratingoption">
+            <i  class="icon-check_circle" v-bind:class="[rateoption.showcontent ? 'checked' : '']" @click="showContent()"></i><span>只看有内容的评论</span>
           </div>
         </div>
         <div class="content">
@@ -78,47 +78,23 @@ export default {
     return {
       showFlag: false,
       selectrating: [],
-      showcontent: false
+      rateoption: {
+        showcontent: false,
+        changerate: 0 /* 0是all 1是recommand 2是gag */
+      }
     }
   },
   methods: {
     showContent () {
-      this.showcontent = !this.showcontent
-      let contain = []
-      if (this.showcontent) {
-        this.selectrating.forEach(ele => {
-          if (ele.text !== '') {
-            contain.push(ele)
-          }
-        })
-      }
-      this.selectrating = contain
+      this.rateoption.showcontent = !this.rateoption.showcontent // 如果勾选过滤 则处理数据
     },
     changeRate (type) {
-      let contain = []
-      if (this.showcontent) {
-        this.selectrating.forEach(ele => {
-          if (ele.text !== '') {
-            contain.push(ele)
-          }
-        })
-      }
-      this.selectrating = contain
-      let recommandrate = []
-      let gagrate = []
-      this.selectrating.forEach(ele => {
-        if (ele.rateType === 0) {
-          recommandrate.push(ele)
-        } else {
-          gagrate.push(ele)
-        }
-      })
       if (type === 'all') {
-        this.selectrating = this.ratings
+        this.rateoption.changerate = 0
       } else if (type === 'recommand') {
-        this.selectrating = recommandrate
+        this.rateoption.changerate = 1
       } else if (type === 'gag') {
-        this.selectrating = gagrate
+        this.rateoption.changerate = 2
       }
     },
     addcart () {
@@ -138,14 +114,41 @@ export default {
       this.initSCroll()
     })
   },
-  computed: {
-    // selectratings () {
-    //   return this.ratings
-    // }
-  },
   watch: {
     ratings (val) {
       this.selectrating = this.ratings
+    },
+    rateoption: {
+      handler (option) {
+        let container = [] // 先处理是否有评论 过滤一遍
+        if (option.showcontent) {
+          this.ratings.forEach((ele) => {
+            if (ele.text) {
+              container.push(ele)
+            }
+          })
+        } else {
+          container = this.ratings
+        }
+        let wash1 = container
+        let wash2 = []
+        let wash3 = []
+        container.forEach(ele => {
+          if (ele.rateType === 0) {
+            wash2.push(ele)
+          } else if (ele.rateType === 1) {
+            wash3.push(ele)
+          }
+        })
+        if (option.changerate === 0) {
+          this.selectrating = wash1
+        } else if (option.changerate === 1) {
+          this.selectrating = wash2
+        } else if (option.changerate === 2) {
+          this.selectrating = wash3
+        }
+      },
+      deep: true // 对象内部的属性监听，也叫深度监听
     }
   },
   filters: {
