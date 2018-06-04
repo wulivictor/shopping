@@ -13,7 +13,7 @@
       <li  v-for="(item,index) in goods" class="food-list food-list-hook" v-bind:key="index">
         <h1 class="title">{{item.name}}</h1>
         <ul>
-          <li v-for="(food,index) in item.foods"  @click="lookDetail(food,$event)"  class="food-item" v-bind:key="index">
+          <li v-for="(food,index) in item.foods"  @click.stop="lookDetail(food,$event)"  class="food-item" v-bind:key="index">
             <div class="food-icon">
               <img :src="food.icon">
             </div>
@@ -145,7 +145,7 @@ export default {
         return
       }
       this.selectfood = food
-      this.$refs.food.show()
+      this.$refs.food.show() // 调用子组件的方法
     }
   }
 }
