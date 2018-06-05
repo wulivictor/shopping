@@ -3,7 +3,7 @@
     <div class="page-scroll">
       <div class="food-detail">
         <div class="img-show">
-          <div class="picBackground">
+          <div class="picBackground" v-bind:style="{backgroundImage: 'url(' + food.image + ')'}">
           </div>
           <div class="picWapper">
             <img v-bind:src="food.image" class="food-image">

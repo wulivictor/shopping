@@ -21,10 +21,8 @@
               {{seller.supports.length}}个 <i class="icon-keyboard_arrow_right"></i>
             </span>
           </div>
-
         </div>
       </div>
-
     </div>
     <div class="bulutin-wapper" v-on:click="showDetail">
      <span class="bulletin-icon">
@@ -32,9 +30,7 @@
       <span class="bulletin-text">
         {{seller.bulletin}}
      </span>
-
       <i class="icon-keyboard_arrow_right"></i>
-
     </div>
     <div class="background">
       <img :src="seller.avatar">
@@ -48,7 +44,6 @@
               <div class="star">
                 <star :size='48' :score=seller.score></star>
               </div>
-
             </div>
             <div class="discount-msg">
               <div class="msg-title">
