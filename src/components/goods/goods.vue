@@ -145,7 +145,7 @@ export default {
         return
       }
       this.selectfood = food
-      this.$refs.food.show() // 调用子组件的方法
+      document.getElementById('foodWapper').style.display = 'block'
     }
   }
 }
