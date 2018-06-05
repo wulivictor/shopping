@@ -13,9 +13,26 @@
       width 100%
       border-1px(rgba(7,17,27,0.1))
       background-color #ffffff
-      .food-image
-        width 100%
+      .img-show
+        overflow hidden
+        position relative
         height 375px
+
+        .picBackground
+          width 100%
+          height 375px
+          position absolute
+          z-index 0
+        .picWapper
+          max-width 475px
+          text-align center
+          background-color transparent
+          position absolute
+          z-index 1
+          .food-image
+            display block
+            width 100%
+            height 375px
       .food-msg
         padding  18px
         h2
@@ -57,7 +74,6 @@
               padding 6px 0
               text-align center
               border-radius 12px
-
     .food-intro
       padding 18px
       margin-top 16px
@@ -187,15 +203,17 @@
                 color rgb(7,17,27)
 
 
-
-
-
-/*
-动画样式在最后面写
-*/
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+// 做媒体查询
+@media screen and (min-width: 475px) {
+  .picBackground {
+    background url("http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750")
+    background-size 100% 375px
+    filter blur(25px)
+  }
+  .picWapper{
+    left 50%
+    margin-left -237.5px
+  }
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
+
+
