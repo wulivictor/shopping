@@ -39,7 +39,7 @@
     </div>
     <div class="content">
     <ul>
-      <li class="rate-item" v-for="(rate, index) in rating" v-bind:key="index">
+      <li class="rate-item" v-for="(rate, index) in selectrating" v-bind:key="index">
         <div class="rate-msg">
           <div class="person-img" v-bind:style="{backgroundImage : 'url('+rate.avatar +')'}"></div>
           <div class="person-msg">
@@ -106,6 +106,7 @@ export default {
       request = request.data
       if (request.errno === ERRNO) {
         this.rating = request.data
+        this.selectrating = this.rating
       }
     })
   },

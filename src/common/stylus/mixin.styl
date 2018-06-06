@@ -1,16 +1,14 @@
 //定义函数
 border-1px($color)
-    position relative
-    &::after
-      position absolute
-      display block
-      width 100%
-      content ' '
-      bottom: 0
-      left: 0
-      border-bottom 1px solid $color
-
-
+  position relative
+  &::after
+    position absolute
+    display block
+    width 100%
+    content ' '
+    bottom: 0
+    left: 0
+    border-bottom 1px solid $color
 border-1pxtop($color)
   position relative
   &::after
@@ -22,9 +20,18 @@ border-1pxtop($color)
     left: 0
     border-top 1px solid $color
 
+//border-1pxright($color)
+//  position relative
+//  &::after
+//    position absolute
+//    display block
+//    height 100%
+//    content ' '
+//    top: 0
+//    right: 0
+//    border-right 1px solid $color
+
 bg-image($url)
   background-image url($url+'@2x.png')
-
   @media (-webkit-min-device-pixel-retio: 3),(min-device-pixel-retio: 3)
     background-image url($url+'@3x.png')
-

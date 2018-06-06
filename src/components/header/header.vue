@@ -1,8 +1,7 @@
 <template>
   <div class="header">
     <div class="content-wapper">
-      <div class="avatar">
-        <img :src=seller.avatar>
+      <div class="avatar"  v-bind:style="{backgroundImage : 'url('+ seller.avatar +')'}">
       </div>
       <div class="seller-main">
         <div class="title">
