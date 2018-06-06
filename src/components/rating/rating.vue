@@ -29,9 +29,9 @@
   <div class="food-rating">
     <div class="header">
       <div class="btn-group">
-        <div class="all">全部<span class="ratingtotal"></span></div>
-        <div class="recommand">推荐</div>
-        <div class="gag" >吐槽</div>
+        <div class="all" @click="changeRate('all')">全部<span class="ratingtotal"></span></div>
+        <div class="recommand" @click="changeRate('recommand')">推荐</div>
+        <div class="gag" @click="changeRate('gag')">吐槽</div>
       </div>
       <div class="ratingoption">
         <i  class="icon-check_circle" v-bind:class="[rateoption.showcontent ? 'checked' : '']" @click="showContent()"></i><span>只看有内容的评论</span>
@@ -41,13 +41,13 @@
     <ul>
       <li class="rate-item" v-for="(rate, index) in rating" v-bind:key="index">
         <div class="rate-msg">
-          <div class="person-img"><img v-bind:src="rate.avatar"></div>
+          <div class="person-img" v-bind:style="{backgroundImage : 'url('+rate.avatar +')'}"></div>
           <div class="person-msg">
             <div class="person-name">{{rate.username}}</div>
-            <div class="rate-star">
+            <div class="rate-extra">
               <star class="star" :size='36' :score=rate.score></star>
+              <div class="delivery-time" v-show="rate.deliveryTime!=''">{{rate.deliveryTime}}分钟送达</div>
             </div>
-            <div class="delivery-time">{{rate.deliveryTime}}分钟送达</div>
           </div>
           <div class="rate-time">{{rate.rateTime | formatDate}}</div>
         </div>
@@ -57,7 +57,7 @@
         <div class="rate-command" v-show="rate.recommend[0]!=''">
           <ul>
             <i v-bind:class="[rate.rateType === 0 ? 'icon-thumb_up' : 'icon-thumb_down']"></i>
-            <li v-for="(rec,index) in rate.recommend" v-bind:key="index">
+            <li v-for="(rec,index) in rate.recommend" v-bind:key="index" class="command-item">
               {{rec}}
             </li>
           </ul>
@@ -79,6 +79,7 @@ export default {
   data () {
     return {
       rating: [],
+      selectrating: [],
       rateoption: {
         showcontent: false,
         changerate: 0 /* 0是all 1是recommand 2是gag */
@@ -115,6 +116,15 @@ export default {
     }
   },
   methods: {
+    changeRate (type) {
+      if (type === 'all') {
+        this.rateoption.changerate = 0
+      } else if (type === 'recommand') {
+        this.rateoption.changerate = 1
+      } else if (type === 'gag') {
+        this.rateoption.changerate = 2
+      }
+    },
     _initScroll () {
       this.rateScroll = new BScroll(this.$refs.rateWapper, {
         click: true
@@ -122,6 +132,43 @@ export default {
     },
     showContent () {
       this.rateoption.showcontent = !this.rateoption.showcontent // 如果勾选过滤 则处理数据
+    }
+  },
+  watch: {
+    ratings (val) {
+      this.selectrating = this.ratings
+    },
+    rateoption: {
+      handler (option) {
+        let container = [] // 先处理是否有评论 过滤一遍
+        if (option.showcontent) {
+          this.rating.forEach((ele) => {
+            if (ele.text) {
+              container.push(ele)
+            }
+          })
+        } else {
+          container = this.rating
+        }
+        let wash1 = container
+        let wash2 = []
+        let wash3 = []
+        container.forEach(ele => {
+          if (ele.rateType === 0) {
+            wash2.push(ele)
+          } else if (ele.rateType === 1) {
+            wash3.push(ele)
+          }
+        })
+        if (option.changerate === 0) {
+          this.selectrating = wash1
+        } else if (option.changerate === 1) {
+          this.selectrating = wash2
+        } else if (option.changerate === 2) {
+          this.selectrating = wash3
+        }
+      },
+      deep: true // 对象内部的属性监听，也叫深度监听
     }
   }
 }
