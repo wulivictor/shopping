@@ -1,5 +1,6 @@
 <template>
-<div class="rating">
+<div class="rating" ref="ratingWapper">
+  <div>
     <div class="rating-content" >
       <div class="overview">
         <div class="overview-left">
@@ -67,6 +68,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script type="text/ecmascript-6">
 import {formatDate} from '../../common/js/date'
@@ -100,7 +102,7 @@ export default {
   },
   created () {
     this.$nextTick(() => {
-      // this._initScroll()
+      this._initScroll()
     })
     this.$http.get('api/ratings').then((request) => {
       request = request.data
@@ -127,7 +129,7 @@ export default {
       }
     },
     _initScroll () {
-      this.rateScroll = new BScroll(this.$refs.rateWapper, {
+      this.rateScroll = new BScroll(this.$refs.ratingWapper, {
         click: true
       })
     },

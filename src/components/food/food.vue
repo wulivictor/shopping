@@ -63,6 +63,7 @@
           </ul>
         </div>
       </div>
+      <div class="icon-arrow_lift" @click.stop="hideer()"></div>
     </div>
   </div>
 </template>
@@ -114,7 +115,7 @@ export default {
         if ((this.endX - this.startX) > 180) {
           // 可以隐藏
           // $('#foodWapper').hide(400, 'linear')
-          document.getElementById('foodWapper').style.display = 'none'
+          this.hide()
         }
         if (evt.cancelable) {
           // 判断默认行为是否已经被禁用
@@ -125,6 +126,9 @@ export default {
       },
       { passive: false }
       )
+    },
+    hideer () {
+      document.getElementById('foodWapper').style.display = 'none'
     },
     showContent () {
       this.rateoption.showcontent = !this.rateoption.showcontent // 如果勾选过滤 则处理数据

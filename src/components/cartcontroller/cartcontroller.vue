@@ -1,6 +1,6 @@
 <template>
 <div class="cartcontroller">
-  <div class="food-decrease icon-remove_circle_outline"  v-show="food.count>0" @click="decreaseClick"></div>
+  <div class="food-decrease icon-remove_circle_outline"  v-show="food.count>0" @click.stop="decreaseClick"></div>
   <div class="food-count" v-show="food.count>0"> <!---->
     <input type="number" v-model="food.count">
   </div>

@@ -133,7 +133,7 @@ export default {
       }
     },
     submitOrder () {
-      return 0
+      alert(this.calcutePrice + '元')
     },
     showShopCart () {
       if (this.selectfoods.length) {

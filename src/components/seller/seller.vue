@@ -76,6 +76,7 @@
 </div>
 </template>
 <script type="text/ecmascript-6">
+import BScroll from 'better-scroll'
 import star from '../../components/star/star.vue'
 export default {
   name: 'seller',
@@ -90,15 +91,15 @@ export default {
   created () {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     this.$nextTick(() => {
-      // this._initScroll()
+      this._initScroll()
     })
   },
   methods: {
-    // _initScroll () {
-    //   let sellerScroll = new BScroll(this.$refs.sellWapper, {
-    //     click: true
-    //   })
-    // }
+    _initScroll () {
+      this.sellerScroll = new BScroll(this.$refs.sellWapper, {
+        click: true
+      })
+    }
   }
 }
 </script>
