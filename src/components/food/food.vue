@@ -1,5 +1,5 @@
 <template>
-  <div v-show="showFlag" class="food" ref="foodWapper" id="foodWapper"> <!-- @touchstart='touchStart' @touchend='touchEnd' -->
+  <div  class="food food_hide" ref="foodWapper" id="foodWapper"> <!-- @touchstart='touchStart' @touchend='touchEnd' -->
     <div class="page-scroll">
       <div class="food-detail">
         <div class="img-show">
@@ -114,8 +114,7 @@ export default {
         this.endX = evt.changedTouches[0].clientX
         if ((this.endX - this.startX) > 180) {
           // 可以隐藏
-          // $('#foodWapper').hide(400, 'linear')
-          this.hide()
+          this.hideer()
         }
         if (evt.cancelable) {
           // 判断默认行为是否已经被禁用
@@ -128,7 +127,7 @@ export default {
       )
     },
     hideer () {
-      document.getElementById('foodWapper').style.display = 'none'
+      document.getElementById('foodWapper').classList.add('food_hide')
     },
     showContent () {
       this.rateoption.showcontent = !this.rateoption.showcontent // 如果勾选过滤 则处理数据
@@ -164,7 +163,8 @@ export default {
         window.addEventListener('popstate', function () {
           window.history.pushState('forward', null, '#')
           window.history.forward(1)
-          document.getElementById('foodWapper').style.display = 'none'
+          document.getElementById('foodWapper').classList.remove('food_show')
+          document.getElementById('foodWapper').classList.add('food_hide')
         })
       }
       window.history.pushState('forward', null, '#') // 在IE中必须得有这两行

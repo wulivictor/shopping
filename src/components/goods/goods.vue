@@ -145,7 +145,9 @@ export default {
         return
       }
       this.selectfood = food
-      document.getElementById('foodWapper').style.display = 'block'
+      let foodwapper = document.getElementById('foodWapper')
+      foodwapper.classList.remove('food_hide')
+      foodwapper.classList.add('food_show')
     }
   }
 }
